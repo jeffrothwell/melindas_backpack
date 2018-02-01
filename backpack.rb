@@ -10,45 +10,16 @@ class Backpack
   end
 
   def add_items_based_on_attributes
-    # set up local variables used by rest of add_items_based_on_attributes method
-    weather = @attributes[:weather]
-    day_of_week = @attributes[:day_of_week]
-
-    # Ensure appropriate clothing is added to backpack
-    if weather == 'rainy'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'umbrella'
-    elsif weather == 'cold'
-      @items << 'pants'
-      @items << 'shirt'
-      @items << 'jacket'
-    else
-      @items << 'pants'
-      @items << 'shirt'
-    end
-
-    # Ensure gym shoes are added to backpack if it's a gym day
-    # Gotta get to the gym on Mondays and Thursdays.
-    if day_of_week == 'monday' || day_of_week == 'thursday'
-      # add gym shoes to items
-      @items << 'gym shoes'
-    end
-
-    # Bring a packed lunch on all weekdays
-    if day_of_week != 'saturday' && day_of_week != 'sunday'
-      @items << 'packed lunch'
-    elsif false
-      # Used to bring snacks on weekend trips, but now I just buy 'em
-      @items << 'snacks'
-    end
+    pack_clothes_based_on_weather
+    pack_gym_shoes_on_gym_days
+    pack_lunch_on_weekdays
   end
 
   # Prints a summary packing list for Melinda's backpack
   def packing_list
     output = []
     output << "Melinda, here's your packing list!"
-    output << "Day: #{@attributes[:day_of_week]}, Weather: #{@attributes[:weather]}"
+    output << "Day: #{day_of_week}, Weather: #{weather}"
     output << ""
 
     @items.each do |item|
@@ -57,4 +28,34 @@ class Backpack
     output.join("\n")
   end
 
+  def pack_clothes_based_on_weather
+    # need pants and shirt every day
+    @items << 'pants'
+    @items << 'shirt'
+    if weather == 'rainy'
+      @items << 'umbrella'
+    elsif weather == 'cold'
+      @items << 'jacket'
+    end
+  end
+
+  def pack_gym_shoes_on_gym_days
+    if day_of_week == 'monday' || day_of_week == 'thursday'
+      @items << 'gym shoes'
+    end
+  end
+
+  def pack_lunch_on_weekdays
+    if day_of_week != 'saturday' && day_of_week != 'sunday'
+      @items << 'packed lunch'
+    end
+  end
+
+  def day_of_week
+    @attributes[:day_of_week]
+  end
+
+  def weather
+    @attributes[:weather]
+  end
 end
