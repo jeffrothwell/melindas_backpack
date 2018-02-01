@@ -11,15 +11,15 @@ class Backpack
 
   def add_items_based_on_attributes
     # set up local variables used by rest of add_items_based_on_attributes method
-    x = @attributes[:weather]
+    weather = @attributes[:weather]
     day_of_week = @attributes[:day_of_week]
 
     # Ensure appropriate clothing is added to backpack
-    if x == 'rainy'
+    if weather == 'rainy'
       @items << 'pants'
       @items << 'shirt'
       @items << 'umbrella'
-    elsif x == 'cold'
+    elsif weather == 'cold'
       @items << 'pants'
       @items << 'shirt'
       @items << 'jacket'
@@ -29,7 +29,7 @@ class Backpack
     end
 
     # Ensure gym shoes are added to backpack if it's a gym day
-    # Gotta get to the gym on Tuesdays and Thursdays. Wait a sec...
+    # Gotta get to the gym on Mondays and Thursdays.
     if day_of_week == 'monday' || day_of_week == 'thursday'
       # add gym shoes to items
       @items << 'gym shoes'
@@ -45,7 +45,7 @@ class Backpack
   end
 
   # Prints a summary packing list for Melinda's backpack
-  def my_func
+  def packing_list
     output = []
     output << "Melinda, here's your packing list!"
     output << "Day: #{@attributes[:day_of_week]}, Weather: #{@attributes[:weather]}"
